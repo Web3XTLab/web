@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./AppNTF.sol";
+import "./AppNFT.sol";
 
 contract AppStore {
     event Log(uint message);
 
-    AppNFT public appNTF;
+    AppNFT public appNFT;
 
     /**
      * App Property
@@ -22,17 +22,17 @@ contract AppStore {
     }
 
     /**
-     * AppNTF TokenId(uint256) => AppProperty
+     * AppNFT TokenId(uint256) => AppProperty
      */
     mapping(uint256 => AppProperty) public appMap;
 
     constructor() {
-        appNTF = new AppNFT();
+        appNFT = new AppNFT();
     }
 
     function sell(uint amount, string memory tokenURI) public returns (uint256)  {
-        // create NTF token
-        uint ntfToken = appNTF.awardItem(msg.sender, tokenURI);
+        // create NFT token
+        uint NFTToken = appNFT.awardItem(msg.sender, tokenURI);
 
         // record app property: the price
         AppProperty memory appProperty;
@@ -40,9 +40,9 @@ contract AppStore {
         appProperty.price = amount;
 
         // set to map
-        appMap[ntfToken] = appProperty;
+        appMap[NFTToken] = appProperty;
 
-        return ntfToken;
+        return NFTToken;
     }
 
     // Todo: Repeat buy and many more
