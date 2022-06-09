@@ -1,5 +1,25 @@
 {
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0"
+  "name": "bitforest",
+  "version": "0.0.1",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "install:app": "cd app && npm install",
+    "install:contract": "cd contract && npm install",
+    "install": "npm run install:app && npm run install:contract",
+    "dev:app": "cd app && npm run dev",
+    "dev:contract": "cd contract && npm run dev",
+    "dev": "concurrently --kill-others 'npm run dev:contract' 'npm run dev:app'",
+    "compile": "cd contract && truffle compile",
+    "migrate": "cd contract && truffle migrate",
+    "test": "cd contract && truffle test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.2.1"
   }
 }
