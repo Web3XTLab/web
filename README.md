@@ -25,3 +25,6 @@ $ npm run migrate
 ```bash
 npm run dev
 ```
+
+- 3000: UI port
+- 8000: Contract Server
