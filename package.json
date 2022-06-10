@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier -w .",
-    "compile": "truffle compile",
-    "migrate": "truffle migrate",
+    "migrate": "truffle compile && truffle migrate",
     "test": "truffle test",
     "contract": "truffle exev ./scripts/contract_run.js"
   },

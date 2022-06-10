@@ -11,21 +11,18 @@
 ```bash
 $ npm install -g truffle
 
-$ npm run install
+$ npm install
 ```
 
 ## Compile & Migrate Contract
 ```bash
-$ npm run compile
-
 $ npm run migrate
 ```
 
 ## Dev
 
 ```bash
-npm run dev
+$ npm run dev
 ```
 
-- 3000: UI port
-- 8000: Contract Server
+The website will load on port 3000.
