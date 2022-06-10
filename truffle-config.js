@@ -7,10 +7,11 @@ module.exports = {
       port: 7545,
       network_id: "*" // Match any network id
     },
-    develop: {
-      port: 8545
-    }
   },
+
+  contracts_directory: './contracts',
+  contracts_build_directory: './src/abis',
+
   compilers: {
     solc: {
       version: "0.8.5"

@@ -1,7 +1,0 @@
-{
-  "port": 8000,
-  "cors": true,
-  "server": {
-    "baseDir": ["./src", "./build/contracts"]
-  }
-}

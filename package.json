@@ -1,25 +1,51 @@
 {
-  "name": "bitforest",
-  "version": "0.0.1",
-  "description": "",
-  "main": "truffle.js",
-  "directories": {
-    "test": "test"
-  },
+  "name": "bitforest-dapp-store",
+  "version": "0.1.1",
+  "private": true,
   "scripts": {
-    "install:app": "cd app && npm install",
-    "install:contract": "cd contract && npm install",
-    "install": "npm run install:app && npm run install:contract",
-    "dev:app": "cd app && npm run dev",
-    "dev:contract": "cd contract && npm run dev",
-    "dev": "concurrently --kill-others 'npm run dev:contract' 'npm run dev:app'",
-    "compile": "cd contract && truffle compile",
-    "migrate": "cd contract && truffle migrate",
-    "test": "cd contract && truffle test"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier -w .",
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "test": "truffle test",
+    "contract": "truffle exev ./scripts/contract_run.js"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@truffle/contract": "^4.5.14",
+    "@types/mongodb": "^4.0.7",
+    "axios": "^0.26.1",
+    "mongodb": "^4.4.1",
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.28.1",
+    "sass": "^1.49.9",
+    "swr": "^1.2.2",
+    "web3": "^1.7.3"
+  },
   "devDependencies": {
-    "concurrently": "^7.2.1"
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/material": "^5.5.2",
+    "@openzeppelin/contracts": "^4.2.0",
+    "@openzeppelin/test-helpers": "^0.5.12",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.40",
+    "@types/uuid": "^8.3.4",
+    "dotenv": "^10.0.0",
+    "eslint": "8.11.0",
+    "eslint-config-next": "12.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "prettier": "2.6.0",
+    "sass": "^1.49.9",
+    "truffle": "^5.3.14",
+    "truffle-hdwallet-provider-privkey": "^0.3.0",
+    "typescript": "4.6.2"
   }
 }

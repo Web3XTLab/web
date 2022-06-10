@@ -2,6 +2,7 @@
 
 ## Need To Know
 
+- [next.js](https://nextjs.org/)
 - [Truffle](https://trufflesuite.com/tutorial/)
 - [Ganache](https://trufflesuite.com/ganache//)
 

@@ -11,12 +11,16 @@ contract AppNFT is ERC721URIStorage {
 
     constructor() ERC721("BitForest", "BFT") {}
 
-    function awardItem(address player, string memory tokenURI) public returns (uint256) {
+    function add(address sender, string memory tokenURI) public returns (uint256) {
         uint256 newItemId = _tokenIds.current();
-        _mint(player, newItemId);
+        _mint(sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
 
         _tokenIds.increment();
         return newItemId;
+    }
+
+    function currentCount() public view returns (uint256) {
+        return _tokenIds.current();
     }
 }
