@@ -33,8 +33,8 @@ const App = {
       App.web3Provider = new Web3.providers.HttpProvider(
         "http://localhost:7545"
       );
-      // App.web3 = new Web3("ws://127.0.0.1:7545");
     }
+    // App.web3 = new Web3("ws://127.0.0.1:7545");
     App.web3 = new Web3(App.web3Provider);
 
     await App.initContract();

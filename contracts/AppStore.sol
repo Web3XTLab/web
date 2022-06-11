@@ -68,19 +68,17 @@ contract AppStore {
      * The method consumers use to buy app
      */
     function buy(uint256 tokenId) public payable returns (bool)  {
-        AppProperty storage buyApp = appMap[tokenId];
-    
-        require(buyApp.seller != address(0), "Error: There is no app pointed to by this tokenId");
-        require(buyApp.price == msg.value, "Error: The purchase price for this app is incorrect");
-        require(buyApp.buyers[msg.sender] != true, "Error: This user has already purchased");
+        require(appMap[tokenId].seller != address(0), "Error: There is no app pointed to by this tokenId");
+        require(appMap[tokenId].price == msg.value, "Error: The purchase price for this app is incorrect");
+        require(appMap[tokenId].buyers[msg.sender] != true, "Error: This user has already purchased");
 
         // transform eth to seller
-        buyApp.seller.transfer(msg.value);
+        appMap[tokenId].seller.transfer(msg.value);
 
         // add buyers to buyApp.buyers 
-        buyApp.buyers[msg.sender] = true;
+        appMap[tokenId].buyers[msg.sender] = true;
 
-        emit OnBuy(msg.sender, buyApp.seller, tokenId, msg.value);
+        emit OnBuy(msg.sender, appMap[tokenId].seller, tokenId, msg.value);
 
         return true;
     }
