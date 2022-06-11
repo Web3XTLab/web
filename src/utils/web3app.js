@@ -1,9 +1,6 @@
 import Web3 from "web3";
 import AppStoreAbi from "@/src/abis/AppStore.json";
 
-const seller = "0xe556286488553dd65c321504e4E53fD74fB6D8E6";
-const buyer = "0xf759d285DC49538C58A4d038126C02bda3F07139";
-
 const App = {
   web3Provider: null,
   contracts: {},
@@ -55,8 +52,8 @@ const App = {
 
   sell: async () => {
     try {
-      // const accounts = await App.web3.eth.getAccounts();
-      const account = seller; // accounts[0];
+      const accounts = await App.web3.eth.getAccounts();
+      const account = accounts[0];
       console.log("account", account);
 
       const amount = 1000000000;
@@ -83,8 +80,8 @@ const App = {
 
   buy: async () => {
     try {
-      // const accounts = await App.web3.eth.getAccounts();
-      const account = buyer; //accounts[0];
+      const accounts = await App.web3.eth.getAccounts();
+      const account = accounts[0];
       console.log("account", account);
 
       App.contracts.AppStore.events
@@ -106,8 +103,8 @@ const App = {
 
   verify: async () => {
     try {
-      // const accounts = await App.web3.eth.getAccounts();
-      const account = buyer; // accounts[0];
+      const accounts = await App.web3.eth.getAccounts();
+      const account = accounts[0];
       console.log("account", account);
 
       App.contracts.AppStore.events
