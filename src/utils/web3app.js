@@ -116,7 +116,7 @@ const App = {
           console.log(error);
         });
 
-      const result = await App.contracts.AppStore.methods.verify(0).send({ from: account });
+      const result = await App.contracts.AppStore.methods.verify(0, account).call();
       console.log(result);
     } catch (e) {
       console.error(e);

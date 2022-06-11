@@ -89,10 +89,10 @@ contract AppStore {
      * The method developer use to verify consumer permissions
      *
      */
-    function verify(uint256 tokenId) public returns (bool) {
+    function verify(uint256 tokenId, address buyer) public returns (bool) {
         require(appMap[tokenId].seller != address(0), "Error: There is no app pointed to by this tokenId");
 
-        bool verified = appMap[tokenId].buyers[msg.sender] == true;
+        bool verified = appMap[tokenId].buyers[buyer] == true;
 
         emit OnVerify(verified, tokenId);
 
