@@ -1,31 +1,26 @@
-import { useEffect } from 'react';
-import web3app from '@/src/utils/web3app';
+import useWeb3 from '@/src/hooks/useWeb3';
 
-web3app.init();
 const Demo = () => {
-
-  // DEMO
-  useEffect(() => {
-  }, []);
+  const web3 = useWeb3();
 
   const handleSell = () => {
-    web3app.sell();
+    web3?.sell();
   }
 
   const handleBuy = () => {
-    web3app.buy();
+    web3?.buy();
   }
 
   const handleVerify = () => {
-    web3app.verify();
+    web3?.verify();
   }
 
   const totalCount = () => {
-    web3app.totalCount();
+    web3?.totalCount();
   }
 
   const tokenURI = () => {
-    web3app.tokenURIs();
+    web3?.tokenURIs();
   }
 
   return (
