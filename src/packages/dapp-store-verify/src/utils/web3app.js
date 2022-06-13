@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import AppStoreAbi from "@/src/abis/AppStore.json";
+import AppStoreAbi from "../abis/AppStore.json";
 
 const oneEther = Web3.utils.toBN(10**18);
 
