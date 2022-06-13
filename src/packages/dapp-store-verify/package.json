@@ -1,0 +1,14 @@
+{
+  "name": "dapp-store-verify",
+  "version": "0.0.1",
+  "description": "Utility for developers to verify consumer permissions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "typescript": "^4.7.3"
+  }
+}
