@@ -1,4 +1,4 @@
-import web3app from './utils/web3app';  // TODO: improve the usage of shared libraries (not just copying files)
+import web3app from '../../../src/utils/web3app';
 
 let initialized = false;
 

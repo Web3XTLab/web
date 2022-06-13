@@ -2,8 +2,8 @@
   "name": "dapp-store-verify",
   "version": "0.0.1",
   "description": "Utility for developers to verify consumer permissions",
-  "main": "dist/cjs/index.js",
-  "types": "dist/cjs/index.d.ts",
+  "main": "dist/cjs/packages/dapp-store-verify/src/index.js",
+  "types": "dist/cjs/packages/dapp-store-verify/src/index.d.ts",
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc --project tsconfig.cjs.json",
