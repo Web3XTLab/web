@@ -1,8 +1,21 @@
 import web3app from './utils/web3app';  // TODO: improve the usage of shared libraries (not just copying files)
 
-console.log(web3app);
+let initialized = false;
 
-export function add(a: number, b: number)
+/**
+ * @param appTokenId - The token id of the app
+ * @param consumerAddress - The address of the verified consumer 
+ * @returns Whether the verified consumer has bought the app
+ */
+export async function isAppBuyer(appTokenId: number, consumerAddress: number): Promise<boolean>
 {
-    return a + b;
+    if (!initialized)
+    {
+        await web3app.init();
+        initialized = true;
+    }
+
+    // TODO: remove after the underlying API is stable
+    // @ts-ignore
+    return web3app.verify(appTokenId, consumerAddress);
 }
