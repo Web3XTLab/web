@@ -39,3 +39,6 @@ yarn-error.log*
 
 # remix
 /contracts/artifacts/
+
+# vscode
+.vscode/
