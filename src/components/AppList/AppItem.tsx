@@ -29,6 +29,7 @@ const H4 = styled.h4`
 
 const Image = styled.img`
   width: 150px;
+  margin-bottom: 4px;
 `;
 
 const StartsWrapper = styled.div`

@@ -10,6 +10,8 @@ const App = {
 
   account: 0,
 
+  toBN: Web3.utils.toBN,
+
   init: async () => {
     if (App.web3) return App;
     return await App.initWeb3();
@@ -61,8 +63,8 @@ const App = {
 
     try {
       await App.getAccount();
-      window.ethereum.once('accountsChanged', () => {
-        App.account = accounts[0];
+      window.ethereum.once("accountsChanged", (accounts) => {
+        location.reload();
       });
     } catch (e) {
       console.error(e);
@@ -84,14 +86,10 @@ const App = {
     return !!window.ethereum;
   },
 
-  sell: async () => {
+  sell: async (tokenURI, amount) => {
     try {
       const account = await App.getAccount();
       console.log("account", account);
-
-      const amount = oneEther;
-      // TODO: ipfs file
-      const tokenURI = `https://abcoathup.github.io/SampleERC1155/api/token/${Math.random()}.json`;
 
       App.contracts.AppStore.events
         .OnSell()
@@ -102,17 +100,15 @@ const App = {
           console.log(error);
         });
 
-      const result = await App.contracts.AppStore.methods
+      return await App.contracts.AppStore.methods
         .sell(amount, tokenURI)
         .send({ from: account });
-
-      console.log('result', result);
     } catch (e) {
       console.error(e);
     }
   },
 
-  buy: async () => {
+  buy: async (tokenId, amount) => {
     try {
       const account = await App.getAccount();
       console.log("account", account);
@@ -126,15 +122,15 @@ const App = {
           console.log(error);
         });
 
-      await App.contracts.AppStore.methods
-        .buy(0)
-        .send({ from: account, value: oneEther });
+      return await App.contracts.AppStore.methods
+        .buy(tokenId)
+        .send({ from: account, value: amount });
     } catch (e) {
       console.error(e);
     }
   },
 
-  verify: async () => {
+  verify: async (tokenId) => {
     try {
       const account = await App.getAccount();
       console.log("account", account);
@@ -148,8 +144,9 @@ const App = {
           console.log(error);
         });
 
-      const result = await App.contracts.AppStore.methods.verify(0, account).call();
-      console.log(result);
+      return await App.contracts.AppStore.methods
+        .verify(tokenId, account)
+        .call();
     } catch (e) {
       console.error(e);
     }
@@ -157,18 +154,17 @@ const App = {
 
   totalCount: async () => {
     try {
-      const result = await App.contracts.AppStore.methods.totalCount().call();
-      console.log("totalCount", result);
+      return await App.contracts.AppStore.methods.totalCount().call();
     } catch (e) {
       console.error(e);
     }
   },
 
-  tokenURI: async (id) => {
+  tokenURI: async (tokenId) => {
     try {
-      const item = await App.contracts.AppStore.methods.getTokenURI(id).call();
-      console.log(item);
-      return item;
+      return await App.contracts.AppStore.methods
+        .getTokenURI(tokenId)
+        .call();
     } catch (e) {
       console.error(e);
     }
@@ -182,7 +178,6 @@ const App = {
         const item = await App.contracts.AppStore.methods.getTokenURI(i).call();
         items.push(item);
       }
-      console.log("tokenURI", items);
       return items;
     } catch (e) {
       console.error(e);

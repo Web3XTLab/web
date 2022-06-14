@@ -23,8 +23,8 @@ const MainContent = styled.div`
 const HomePage = () => {
   const router = useRouter()
 
-  const handleItemClick = useCallback((item, id) => {
-    router.push(`/detail/${id}`);
+  const handleItemClick = useCallback((item) => {
+    router.push(`/detail/${item._tokenId}`);
   }, []);
 
   return (
