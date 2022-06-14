@@ -10,11 +10,13 @@
     "format": "prettier -w .",
     "migrate": "truffle compile && truffle migrate",
     "test": "truffle test",
-    "contract": "truffle exev ./scripts/contract_run.js"
+    "contract": "truffle exec ./scripts/contract_run.js"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@fluentui/react": "^8.74.0",
+    "@metamask/jazzicon": "^2.0.0",
     "@truffle/contract": "^4.5.14",
     "@types/mongodb": "^4.0.7",
     "axios": "^0.26.1",
@@ -23,7 +25,10 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.28.1",
+    "react-jazzicon": "^1.0.4",
+    "react-stars": "^2.2.5",
     "sass": "^1.49.9",
+    "styled-components": "^5.3.5",
     "swr": "^1.2.2",
     "web3": "^1.7.3"
   },
@@ -34,8 +39,11 @@
     "@mui/material": "^5.5.2",
     "@openzeppelin/contracts": "^4.2.0",
     "@openzeppelin/test-helpers": "^0.5.12",
+    "@truffle/hdwallet-provider": "^2.0.9",
     "@types/node": "17.0.21",
     "@types/react": "17.0.40",
+    "@types/react-stars": "^2.2.1",
+    "@types/styled-components": "^5.1.25",
     "@types/uuid": "^8.3.4",
     "dotenv": "^10.0.0",
     "eslint": "8.11.0",
