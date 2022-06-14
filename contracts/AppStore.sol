@@ -51,6 +51,7 @@ contract AppStore {
     /**
      * The method developer use to publish app
      */
+    // TODO: verify tokenURI unique
     function sell(uint amount, string memory tokenURI) public returns (uint256)  {
         // create NTF token
         uint ntfToken = appNTF.add(msg.sender, tokenURI);

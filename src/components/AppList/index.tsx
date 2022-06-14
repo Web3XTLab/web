@@ -28,7 +28,7 @@ export default ({ onItemClick }: PropsType) => {
       if (!list) return;
       for (let i = 0; i < list.length; i++) {
         try {
-          const data = await axios.get(list[i]);
+          const data = await axios.get(list[i], { timeout: 5000 });
           dataList.push({
             ...data.data,
             // TODO: need be change
@@ -36,6 +36,7 @@ export default ({ onItemClick }: PropsType) => {
           });
         } catch (e) {
           console.error(e);
+          continue;
         }
       }
       setList(dataList);
@@ -44,7 +45,7 @@ export default ({ onItemClick }: PropsType) => {
 
   return (
     <>
-      <Title>Porpular Apps</Title>
+      <Title>Popular Apps</Title>
       <List>
         {list.map((item: any, id: number) => (
           <Item
