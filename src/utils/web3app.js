@@ -164,6 +164,16 @@ const App = {
     }
   },
 
+  tokenURI: async (id) => {
+    try {
+      const item = await App.contracts.AppStore.methods.getTokenURI(id).call();
+      console.log(item);
+      return item;
+    } catch (e) {
+      console.error(e);
+    }
+  },
+
   tokenURIs: async () => {
     try {
       const items = [];
@@ -173,6 +183,7 @@ const App = {
         items.push(item);
       }
       console.log("tokenURI", items);
+      return items;
     } catch (e) {
       console.error(e);
     }

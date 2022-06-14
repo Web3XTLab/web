@@ -4,6 +4,7 @@ import { PrimaryButton } from "@fluentui/react/lib/Button";
 
 type PropsType = {
   data: Record<string, any>;
+  onItemClick: (data: Record<string, any>) => void;
 };
 
 const ItemWrapper = styled.div`
@@ -34,9 +35,9 @@ const StartsWrapper = styled.div`
   margin-bottom: 4px;
 `;
 
-export default ({ data }: PropsType) => {
+export default ({ data, onItemClick }: PropsType) => {
   return (
-    <ItemWrapper>
+    <ItemWrapper onClick={onItemClick}>
       <Image src={data.image} />
       <H4>{data.name}</H4>
       <StartsWrapper>
