@@ -8,7 +8,6 @@
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
-    "install": "npm run build",
     "test": "npm run test"
   },
   "devDependencies": {
