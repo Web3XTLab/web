@@ -4,9 +4,10 @@
   "description": "Utility for developers to verify consumer permissions",
   "main": "dist/cjs/packages/dapp-store-verify/src/index.js",
   "types": "dist/cjs/packages/dapp-store-verify/src/index.d.ts",
+  "module": "dist/esm/packages/dapp-store-verify/src/index.js",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc --project tsconfig.cjs.json",
+    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
     "install": "npm run build",
     "test": "npm run test"
   },
