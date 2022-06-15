@@ -13,13 +13,12 @@ module.exports = {
       port: 7545,
       network_id: "*" // Match any network id
     },
-
-    ropsten: {
-      provider: function() {
-        return new HDWalletProvider(privateKey, `https://ropsten.infura.io/v3/${appId}`)
-      },
-      network_id: 3
-    }
+    // ropsten: {
+    //   provider: function() {
+    //     return new HDWalletProvider(privateKey, `https://ropsten.infura.io/v3/${appId}`)
+    //   },
+    //   network_id: 3
+    // }
   },
 
   contracts_directory: './contracts',

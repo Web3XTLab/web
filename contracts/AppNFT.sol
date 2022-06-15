@@ -19,11 +19,11 @@ contract AppNFT is ERC721URIStorage {
         bool hasSameName = false;
         bool hasSameTokenURI = false;
         for (uint i = 0; i < newItemId; i++) {
-            if (keccak256(abi.encodePacked(_appNameMap[newItemId])) == keccak256(abi.encodePacked(name))) {
+            if (keccak256(abi.encodePacked(_appNameMap[i])) == keccak256(abi.encodePacked(name))) {
                 hasSameName = true;
                 break;
             }
-            if (keccak256(abi.encodePacked(this.tokenURI(newItemId))) == keccak256(abi.encodePacked(tokenURI))) {
+            if (_exists(i) && keccak256(abi.encodePacked(this.tokenURI(i))) == keccak256(abi.encodePacked(tokenURI))) {
                 hasSameTokenURI = true;
                 break;    
             }

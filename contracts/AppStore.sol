@@ -27,8 +27,8 @@ contract AppStore {
     mapping(uint256 => AppProperty) public appMap;
 
     // events
-    event OnSell(address seller, uint256 tokenId, uint amount);
-    event OnBuy(address buyer, address seller, uint256 tokenId, uint amount);
+    event OnSell(address seller, uint256 tokenId, string name, uint price);
+    event OnBuy(address buyer, address seller, uint256 tokenId, uint price);
     event OnVerify(bool verified, uint256 tokenId);
 
     constructor() {
@@ -81,15 +81,15 @@ contract AppStore {
      * The method developer use to publish app
      */
     // TODO: verify tokenURI unique
-    function sell(string memory name, string memory tokenURI, uint amount) public returns (uint256)  {
+    function sell(string memory name, string memory tokenURI, uint price) public returns (uint256)  {
         // create NTF token
         uint ntfToken = appNTF.add(msg.sender, tokenURI, name);
 
         // record app property: the price
         appMap[ntfToken].seller = payable(msg.sender);
-        appMap[ntfToken].price = amount;
+        appMap[ntfToken].price = price;
 
-        emit OnSell(msg.sender, ntfToken, amount);
+        emit OnSell(msg.sender, ntfToken, name, price);
         
         return ntfToken;
     }

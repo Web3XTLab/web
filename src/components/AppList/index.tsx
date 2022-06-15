@@ -32,7 +32,7 @@ export default ({ onItemClick }: PropsType) => {
   useEffect(() => {
     (async () => {
       const list = await web3.tokenURIs();
-      if (!list) {
+      if (!list || list?.length === 0) {
         setListStatus("empty");
         return;
       }
@@ -65,7 +65,7 @@ export default ({ onItemClick }: PropsType) => {
           ))}
         </List>
       )}
-      {listStatus === "empty" && <NormalContent>No Content Here</NormalContent>}
+      {listStatus === "empty" && <NormalContent>No Apps Here</NormalContent>}
     </>
   );
 };
