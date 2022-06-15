@@ -86,7 +86,7 @@ const App = {
     return !!window.ethereum;
   },
 
-  sell: async (tokenURI, amount) => {
+  sell: async (name, tokenURI, price) => {
     try {
       const account = await App.getAccount();
       console.log("account", account);
@@ -101,14 +101,14 @@ const App = {
         });
 
       return await App.contracts.AppStore.methods
-        .sell(amount, tokenURI)
+        .sell(name, tokenURI, price)
         .send({ from: account });
     } catch (e) {
       console.error(e);
     }
   },
 
-  buy: async (tokenId, amount) => {
+  buy: async (tokenId, price) => {
     try {
       const account = await App.getAccount();
       console.log("account", account);
@@ -124,7 +124,7 @@ const App = {
 
       return await App.contracts.AppStore.methods
         .buy(tokenId)
-        .send({ from: account, value: amount });
+        .send({ from: account, value: price });
     } catch (e) {
       console.error(e);
     }
@@ -181,6 +181,20 @@ const App = {
       return items;
     } catch (e) {
       console.error(e);
+    }
+  },
+
+  getAppInfo: async (tokenId) => {
+    const name = await App.contracts.AppStore.methods.getAppName(tokenId).call();
+    const price = await App.contracts.AppStore.methods.getAppPrice(tokenId).call();
+    const seller = await App.contracts.AppStore.methods.getAppSeller(tokenId).call();
+    const buyers = await App.contracts.AppStore.methods.getAppBuyers(tokenId).call();
+
+    return {
+      name,  
+      price,
+      seller,
+      buyers,
     }
   },
 };
