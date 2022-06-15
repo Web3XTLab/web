@@ -1,4 +1,4 @@
-import web3app from '../../../src/utils/web3app';
+import web3app from '@/src/utils/web3app';
 
 let initialized = false;
 
@@ -14,7 +14,7 @@ export async function isAuthenticated(appTokenId: number): Promise<boolean>
         initialized = true;
     }
 
-    // TODO: remove after the underlying API is stable
-    // @ts-ignore
     return web3app.verify(appTokenId);
 }
+
+export default isAuthenticated;
