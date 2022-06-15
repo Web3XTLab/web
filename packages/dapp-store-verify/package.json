@@ -1,10 +1,23 @@
 {
   "name": "dapp-store-verify",
   "version": "0.0.1",
-  "description": "Utility for developers to verify consumer permissions",
+  "description": "Utility for DApp developers to verify consumer permissions",
   "main": "dist/cjs/packages/dapp-store-verify/src/index.js",
   "types": "dist/cjs/packages/dapp-store-verify/src/index.d.ts",
   "module": "dist/esm/packages/dapp-store-verify/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Web3XTLab/boilerplate.git"
+  },
+  "keywords": [
+    "dapp"
+  ],
+  "author": "soulike",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Web3XTLab/boilerplate/issues"
+  },
+  "homepage": "https://github.com/Web3XTLab/boilerplate#readme",
   "scripts": {
     "prebuild": "rm -rf dist",
     "build": "tsc --project tsconfig.cjs.json && tsc-alias -p tsconfig.cjs.json && tsc --project tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
