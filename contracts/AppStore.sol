@@ -17,7 +17,8 @@ contract AppStore {
     struct AppProperty {
         uint price;
         address payable seller;
-        mapping(address => bool) buyers;
+        address[] buyers;
+        mapping(address => bool) buyersMap;
     }
 
     /**
@@ -49,12 +50,40 @@ contract AppStore {
     }
 
     /**
+     * Get the App Name
+     */
+    function getAppName(uint256 tokenId) public view returns (string memory) {
+        return appNTF.getName(tokenId);
+    }
+
+    /**
+     * Get the App Seller
+     */
+    function getAppSeller(uint256 tokenId) public view returns (address) {
+        return appMap[tokenId].seller;
+    }
+
+    /**
+     * Get the App Price
+     */
+    function getAppPrice(uint256 tokenId) public view returns (uint) {
+        return appMap[tokenId].price;
+    }
+
+    /**
+     * Get the App Buyers
+     */
+    function getAppBuyers(uint256 tokenId) public view returns (address[] memory buyers) {
+        return appMap[tokenId].buyers;
+    }
+
+    /**
      * The method developer use to publish app
      */
     // TODO: verify tokenURI unique
-    function sell(uint amount, string memory tokenURI) public returns (uint256)  {
+    function sell(string memory name, string memory tokenURI, uint amount) public returns (uint256)  {
         // create NTF token
-        uint ntfToken = appNTF.add(msg.sender, tokenURI);
+        uint ntfToken = appNTF.add(msg.sender, tokenURI, name);
 
         // record app property: the price
         appMap[ntfToken].seller = payable(msg.sender);
@@ -71,13 +100,14 @@ contract AppStore {
     function buy(uint256 tokenId) public payable returns (bool)  {
         require(appMap[tokenId].seller != address(0), "Error: There is no app pointed to by this tokenId");
         require(appMap[tokenId].price == msg.value, "Error: The purchase price for this app is incorrect");
-        require(appMap[tokenId].buyers[msg.sender] != true, "Error: This user has already purchased");
+        require(appMap[tokenId].buyersMap[msg.sender] != true, "Error: This user has already purchased");
 
         // transform eth to seller
         appMap[tokenId].seller.transfer(msg.value);
 
         // add buyers to buyApp.buyers 
-        appMap[tokenId].buyers[msg.sender] = true;
+        appMap[tokenId].buyersMap[msg.sender] = true;
+        appMap[tokenId].buyers.push(msg.sender);
 
         emit OnBuy(msg.sender, appMap[tokenId].seller, tokenId, msg.value);
 
@@ -91,7 +121,7 @@ contract AppStore {
     function verify(uint256 tokenId, address buyer) public returns (bool) {
         require(appMap[tokenId].seller != address(0), "Error: There is no app pointed to by this tokenId");
 
-        bool verified = appMap[tokenId].buyers[buyer] == true;
+        bool verified = appMap[tokenId].buyersMap[buyer] == true;
 
         emit OnVerify(verified, tokenId);
 
