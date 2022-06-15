@@ -7,11 +7,12 @@
   "module": "dist/esm/packages/dapp-store-verify/src/index.js",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc --project tsconfig.cjs.json && tsc --project tsconfig.esm.json",
+    "build": "tsc --project tsconfig.cjs.json && tsc-alias -p tsconfig.cjs.json && tsc --project tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
     "test": "npm run test"
   },
   "devDependencies": {
     "@types/node": "^16.0.0",
+    "tsc-alias": "^1.6.9",
     "typescript": "^4.7.3"
   },
   "dependencies": {
