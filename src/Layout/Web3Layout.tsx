@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { Spinner } from '@fluentui/react/lib/Spinner';
@@ -8,9 +8,6 @@ import { Spinner } from '@fluentui/react/lib/Spinner';
 import Web3Context, { IWeb3ContextValue } from '@/src/context/Web3Context';
 import Container from '@/src/components/Container';
 import MetaMaskSupport from '@/src/components/MetaMaskSupport';
-import SiderBar from '@/src/components/SiderBar';
-import Carousel from '@/src/components/Carousel';
-import AppList from '@/src/components/AppList';
 import Footer from '@/src/components/Footer';
 
 import web3app from '@/src/utils/web3app';

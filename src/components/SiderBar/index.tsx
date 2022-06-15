@@ -20,7 +20,7 @@ const navLinkGroups: INavLinkGroup[] = [
   {
     links: [
       {
-        name: "Porpular Apps",
+        name: "Popular Apps",
         url: "http://example.com",
         expandAriaLabel: "Expand Home section",
         collapseAriaLabel: "Collapse Home section",
