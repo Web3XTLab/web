@@ -1,6 +1,6 @@
 {
   "name": "dapp-store-verify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Utility for DApp developers to verify consumer permissions",
   "main": "dist/cjs/packages/dapp-store-verify/src/index.js",
   "types": "dist/cjs/packages/dapp-store-verify/src/index.d.ts",
