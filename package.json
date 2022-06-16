@@ -9,6 +9,8 @@
     "lint": "next lint",
     "format": "prettier -w .",
     "migrate": "truffle compile && truffle migrate",
+    "ropsten": "truffle migrate --reset --network ropsten",
+    "deploy:web": "next build && next export && git add -f out/ && git commit -m \"Deploy gh-pages\" && git subtree push --prefix out origin gh-pages",
     "test": "truffle test",
     "contract": "truffle exec ./scripts/contract_run.js"
   },

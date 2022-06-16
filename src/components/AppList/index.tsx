@@ -24,7 +24,7 @@ const NormalContent = styled.div`
   color: #605e5c;
 `;
 
-export default ({ onItemClick }: PropsType) => {
+const AppList = ({ onItemClick }: PropsType) => {
   const [listStatus, setListStatus] = useState("loading");
   const [list, setList] = useState<string[]>([]);
   const web3 = useWeb3();
@@ -69,3 +69,5 @@ export default ({ onItemClick }: PropsType) => {
     </>
   );
 };
+
+export default AppList;

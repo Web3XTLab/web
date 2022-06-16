@@ -57,7 +57,7 @@ const StartsWrapper = styled.div`
   width: 100%;
 `;
 
-export default ({ data }: any) => {
+const AppItemCard = ({ data }: any) => {
   return (<>
     <Img src={data.image} />
     <DetailText>
@@ -69,3 +69,5 @@ export default ({ data }: any) => {
     </DetailText>
   </>)
 }
+
+export default AppItemCard;

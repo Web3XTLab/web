@@ -58,7 +58,7 @@ const Error = styled.div`
   }
 `;
 
-export default ({ data, onItemClick }: PropsType) => {
+const AppItem = ({ data, onItemClick }: PropsType) => {
   const [metaData, setMetaData] = useState<Record<string, any>>({});
   const [status, setStatus] = useState("loading");
 
@@ -108,3 +108,5 @@ export default ({ data, onItemClick }: PropsType) => {
     </ItemWrapper>
   );
 };
+
+export default AppItem;

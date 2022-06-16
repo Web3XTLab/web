@@ -295,10 +295,12 @@ const Detail = () => {
   );
 };
 
-export default () => {
+const DetailPage = () => {
   return (
     <Web3Layout>
       <Detail />
     </Web3Layout>
   );
 };
+
+export default DetailPage;

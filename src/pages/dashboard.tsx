@@ -122,10 +122,12 @@ const Dashboard = () => {
   );
 };
 
-export default () => {
+const DashboardPage = () => {
   return (
     <Web3Layout>
       <Dashboard />
     </Web3Layout>
   );
 };
+
+export default DashboardPage;
