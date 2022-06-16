@@ -58,7 +58,7 @@ const AppList = ({ onItemClick }: PropsType) => {
               key={`${id}`}
               data={{
                 tokenURI: uri,
-                _tokenId: id,
+                _tokenId: `${id}`,
               }}
               onItemClick={onItemClick}
             />

@@ -34,8 +34,8 @@ const Carousel = () => {
         />
       </ImageWrapper>
       <TextWrapper>
-        <H3>Microsoft Edge</H3>
-        <P>A modern browser, super smooth experience, and supports ETH wallet, you can use it to explore many web pages.</P>
+        <H3>Editor's Choice 👍</H3>
+        <P>This is the DAppStore handpicked App placement for users. App owners can also bid to increase the visibility of their apps.</P>
         <PrimaryButton style={{ marginTop: 24 }}>Get</PrimaryButton>
       </TextWrapper>
     </Container>

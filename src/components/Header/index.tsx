@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import Jazzicon from "react-jazzicon";
+import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import useWeb3 from "@/src/hooks/useWeb3";
 const HeaderWrapper = styled.div`
@@ -22,14 +22,18 @@ const HeaderContent = styled.div`
 const Logo = styled.div`
   background-image: url(https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31);
   background-size: 100%;
-  width: 108px;
-  height: 23px;
+  background-repeat: no-repeat;
+  width: 86px;
+  height: 18px;
 `;
 
 const LogoText = styled.h1`
-  color: #484644;
-  font-size: 18px;
+  color: #605e5c;
+  font-size: 16px;
   margin-left: 16px;
+  line-height: 23px;
+  height: 23px;
+  font-weight: normal;
 `;
 
 const Left = styled.div`
@@ -54,8 +58,9 @@ const UserName = styled.div`
 `;
 
 const LogoWrapper = styled.div`
-  display: flex;
+  align-items: center;
   cursor: pointer;
+  display: flex;
 `;
 
 const Header = () => {
@@ -71,7 +76,7 @@ const Header = () => {
           </LogoWrapper>
         </Left>
         <Right>
-          <Jazzicon diameter={24} seed={web3.account} />
+          <Jazzicon diameter={24} seed={jsNumberForAddress(web3.account)} />
           <UserName title={`${web3.account}`}>{web3.account}</UserName>
         </Right>
       </HeaderContent>
