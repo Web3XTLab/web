@@ -1,18 +1,18 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import axios from "axios";
-
-import AppItemCard from "@/src/components/AppItemCard";
-import { useEffect, useState } from "react";
-import useWeb3 from "@/src/hooks/useWeb3";
 import styled from "styled-components";
-import { PrimaryButton } from '@fluentui/react';
-import PurchaseButton from "@/src/components/PurchaseButton";
+
+import { PrimaryButton } from "@fluentui/react";
+import { Spinner } from '@fluentui/react/lib/Spinner';
+
+import useWeb3 from "@/src/hooks/useWeb3";
+import AppItemCard from "@/src/components/AppItemCard";
 
 const Web3Layout = dynamic(() => import("@/src/Layout/Web3Layout"), {
   ssr: false,
 });
-
 
 const DetailContainer = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const Top_Left = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   width: 80%;
 `;
 
@@ -41,7 +41,7 @@ const Top_Right = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   width: 20%;
 `;
 
@@ -49,7 +49,7 @@ const Top_Right_Text = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: flext-start;
-  align-items:center;
+  align-items: center;
   width: 100%;
   font-size: 10px;
   margin-left: 30%;
@@ -77,10 +77,10 @@ const MediumImg = styled.img`
 `;
 
 const MediumDescription = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 20%;
 `;
 
 const MediumDescriptionTitle = styled.h3`
@@ -98,7 +98,6 @@ const MediumDescriptionText = styled.p`
   justify-content: center;
   margin-bottom: 10px;
   margin-left: 20px;
-
 `;
 
 const DetailContainerBottom = styled.div`
@@ -145,7 +144,7 @@ const DetailContainerBottomDesc = styled.div`
   justify-content: flex-start;
   align-items: center;
   white-space: pre-wrap;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 15px;
   line-height: 25px;
   margin: 0px;
@@ -154,55 +153,75 @@ const DetailContainerBottomDesc = styled.div`
 const DetailContainerBottomLink = styled.a`
   display: inline-flex;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   margin-top: 10px;
   font-size: 14px;
   line-height: 20px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  color: #387DE4;
+  color: #387de4;
 `;
 const Hr = styled.hr`
   margin: 32px -5px;
-    margin-inline-end: 0px;
-    height: 0;
-    margin: 0;
-    border: none;
-    box-sizing: content-box;
-    transition: all 0.2s ease-in-out;
-    border-top: 1px solid #E2E2E2;
+  margin-inline-end: 0px;
+  height: 0;
+  margin: 0;
+  border: none;
+  box-sizing: content-box;
+  transition: all 0.2s ease-in-out;
+  border-top: 1px solid #e2e2e2;
 `;
 
+const Price = styled.div`
+  color: #605e5c;
+  padding-top: 4px;
+  font-size: 13px;
+`;
+
+const imgSrc =
+  "https://store-images.s-microsoft.com/image/apps.60811.b0da2c59-ac0b-4fa2-be60-7bd5087a9aa2.7c62ea9f-3cc7-47c9-b561-95c9ae2a6405.7829337d-00ac-4df4-85ff-a0f218280be4";
+
 const Detail = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<Record<string, any> | null>(null);
+  const [purchaseStatus, setPurcpurchaseStatushase] = useState("loading");
   const web3 = useWeb3();
   const router = useRouter();
 
+  const tokenId = useMemo(() => router.query.id, [router.query.id]);
 
   useEffect(() => {
     (async () => {
-      const id = router.query.id;
-      if (!id || !web3.web3) return;
+      if (!tokenId || !web3.web3) return;
 
-      const itemURI = await web3.tokenURI(id);
+      const itemURI = await web3.tokenURI(tokenId);
+      const appInfo = await web3.getAppInfo(tokenId);
       const data = await axios.get(itemURI);
-      // use mock data
-      setData(data.data as any);
+
+      setData({
+        ...data.data,
+        _appInfo: appInfo,
+      });
+
+      checkPurchaseStatus();
     })();
-  }, [router.query.id, web3.web3]);
+  }, [tokenId, web3.web3]);
 
+  const checkPurchaseStatus = useCallback(async () => {
+    const purchased = await web3.verify(tokenId);
+    setPurcpurchaseStatushase(purchased ? 'purchased' : 'noPurchased'); 
+  }, [tokenId, web3]);
 
+  const handlePurchase = useCallback(async () => {
+    const price = data?._appInfo.price;
+    if (price) {
+      await web3.buy(tokenId, web3.toBN(price));
 
+      checkPurchaseStatus();
+    }
+  }, [tokenId, web3, data]);
 
-
-  const imgSrc = "https://store-images.s-microsoft.com/image/apps.60811.b0da2c59-ac0b-4fa2-be60-7bd5087a9aa2.7c62ea9f-3cc7-47c9-b561-95c9ae2a6405.7829337d-00ac-4df4-85ff-a0f218280be4";
-
-  function purchase(ev: React.MouseEvent<unknown>) {
-    window.alert("purchase");
-  }
-
-  function Top() {
+  const Top = () => {
     return (
       <DetailContainerTop>
         <Top_Left>
@@ -210,13 +229,25 @@ const Detail = () => {
         </Top_Left>
 
         <Top_Right>
-          <PrimaryButton text="Purchase" onClick={purchase} />
+          {
+            purchaseStatus === 'loading' && <PrimaryButton><Spinner /></PrimaryButton>
+          }
+          {
+            purchaseStatus === 'purchased' && <PrimaryButton disabled text="Purchased" />
+          }
+          {
+            purchaseStatus === 'noPurchased' && <>
+              <PrimaryButton text="Purchase" onClick={handlePurchase} />
+              { data?._appInfo && <Price>{data._appInfo.price / 10**18} ETH</Price>}
+              
+            </>
+          }
         </Top_Right>
       </DetailContainerTop>
     );
-  }
+  };
 
-  function Medium() {
+  const Medium = () => {
     return (
       <DetailContainerMedium>
         <MediumImg src={imgSrc} />
@@ -228,26 +259,29 @@ const Detail = () => {
           <MediumDescriptionTitle> Terms</MediumDescriptionTitle>
           <MediumDescriptionText>Privacy policy</MediumDescriptionText>
           <MediumDescriptionTitle> Developer</MediumDescriptionTitle>
-          <MediumDescriptionText>More add-ons from markd.ltd</MediumDescriptionText>
+          <MediumDescriptionText>
+            More add-ons from markd.ltd
+          </MediumDescriptionText>
         </MediumDescription>
       </DetailContainerMedium>
     );
-  }
+  };
 
-  function Bottom({ data }: any) {
+  const Bottom = ({ data }: any) => {
     return (
       <DetailContainerBottom>
         <DetailContainerBottomTitle>Description</DetailContainerBottomTitle>
         <DetailContainerBottomText>
-          <DetailContainerBottomDesc>{data.description}</DetailContainerBottomDesc>
-          <DetailContainerBottomLink href="" target="_blank">Show More</DetailContainerBottomLink>
+          <DetailContainerBottomDesc>
+            {data.description}
+          </DetailContainerBottomDesc>
+          <DetailContainerBottomLink href="" target="_blank">
+            Show More
+          </DetailContainerBottomLink>
         </DetailContainerBottomText>
       </DetailContainerBottom>
     );
-  }
-
-
-
+  };
 
   return (
     <>
@@ -259,14 +293,14 @@ const Detail = () => {
       </DetailContainer>
     </>
   );
-
-  // return <>{data && <AppItemCard data={data} />}</>;
 };
 
-export default () => {
+const DetailPage = () => {
   return (
     <Web3Layout>
       <Detail />
     </Web3Layout>
   );
 };
+
+export default DetailPage;

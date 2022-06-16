@@ -24,7 +24,7 @@ const P = styled.p`
   margin-top: 16px;
 `;
 
-export default () => {
+const Carousel = () => {
   return (
     <Container>
       <ImageWrapper>
@@ -41,3 +41,5 @@ export default () => {
     </Container>
   );
 };
+
+export default Carousel;

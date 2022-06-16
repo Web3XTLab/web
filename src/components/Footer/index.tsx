@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Footer = styled.div`
+const FooterWrapper = styled.div`
   color: #979593;
   height: 48px;
   width: 100%;
@@ -9,8 +9,11 @@ const Footer = styled.div`
   margin-top: 48px;
 `;
 
-export default () => {
-  return <Footer>
+const Footer = () => {
+  return <FooterWrapper>
     © Microsoft 2022
-  </Footer>
+  </FooterWrapper>
 }
+
+export default Footer;
+
