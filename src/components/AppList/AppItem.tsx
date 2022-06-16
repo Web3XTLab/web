@@ -8,7 +8,7 @@ import { FontIcon } from "@fluentui/react/lib/Icon";
 
 export type AppItemDataType = {
   tokenURI: string;
-  _tokenId: number;
+  _tokenId: string;
 };
 
 type PropsType = {
