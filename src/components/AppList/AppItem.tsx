@@ -36,6 +36,11 @@ const ItemWrapper = styled.div`
 
 const H4 = styled.h4`
   margin-bottom: 8px;
+  height: 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
 `;
 
 const Image = styled.img`
@@ -92,11 +97,11 @@ const AppItem = ({ data, onItemClick }: PropsType) => {
       {status === "loaded" && (
         <>
           <Image src={metaData.image} />
-          <H4>{metaData.name}</H4>
+          <H4 title={metaData.name}>{metaData.name}</H4>
           <StartsWrapper>
             <ReactStars
               count={5}
-              value={3}
+              value={4}
               size={12}
               edit={false}
               color2={"#ffd700"}
