@@ -185,7 +185,6 @@ const imgSrc =
 const Detail = () => {
   const [data, setData] = useState<Record<string, any> | null>(null);
   const [purchaseStatus, setPurcpurchaseStatushase] = useState("loading");
-  const [achieveStatus, setAchieveStatus] = useState("noAchieving");
   const web3 = useWeb3();
   const router = useRouter();
 
@@ -211,11 +210,10 @@ const Detail = () => {
   const checkPurchaseStatus = useCallback(async () => {
     const purchased = await web3.verify(tokenId);
     setPurcpurchaseStatushase(purchased ? 'purchased' : 'noPurchased');
-    setAchieveStatus("noAchieving");
   }, [tokenId, web3]);
 
   const handlePurchase = useCallback(async () => {
-    setAchieveStatus("achieving");
+    setPurcpurchaseStatushase("achieving");
     const price = data?._appInfo.price;
     if (price) {
       await web3.buy(tokenId, web3.toBN(price));
@@ -239,22 +237,17 @@ const Detail = () => {
             purchaseStatus === 'purchased' && <PrimaryButton disabled text="Purchased" />
           }
           {
-            purchaseStatus === 'noPurchased' && achieveStatus == 'noAchieving' && <>
+            purchaseStatus === 'noPurchased' && <>
               <PrimaryButton text="Purchase" onClick={handlePurchase} />
               {data?._appInfo && <Price>{data._appInfo.price / 10 ** 18} ETH</Price>}
             </>
           }
-
           {
-            purchaseStatus === 'noPurchased' && achieveStatus == 'achieving' && <>
+            purchaseStatus === 'achieving' && <>
               <PrimaryButton disabled text="Achieving" >
                 <Spinner />
               </PrimaryButton>
             </>
-          }
-
-          {
-
           }
         </Top_Right>
       </DetailContainerTop>
