@@ -6,7 +6,7 @@ let initialized = false;
  * @param appTokenId - The token id of the app
  * @returns Whether the verified consumer has bought the app
  */
-export async function isAuthenticated(appTokenId: number): Promise<boolean>
+export async function isAuthenticated(appTokenId: string): Promise<boolean>
 {
     if (!initialized)
     {

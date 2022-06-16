@@ -34,7 +34,7 @@ const Carousel = () => {
         />
       </ImageWrapper>
       <TextWrapper>
-        <H3>Editor's Choice 👍</H3>
+        <H3>Editor Choice</H3>
         <P>This is the DAppStore handpicked App placement for users. App owners can also bid to increase the visibility of their apps.</P>
         <PrimaryButton style={{ marginTop: 24 }}>Get</PrimaryButton>
       </TextWrapper>

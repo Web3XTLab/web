@@ -16,10 +16,6 @@ const Header = dynamic(
   () => import('@/src/components/Header'),
   { ssr: false }
 )
-const Demo = dynamic(
-  () => import('@/src/components/Demo'),
-  { ssr: false }
-)
 
 type StatusType = 'loading' | 'loaded' | 'error';
 
