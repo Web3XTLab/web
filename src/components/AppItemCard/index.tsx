@@ -62,7 +62,7 @@ const AppItemCard = ({ data }: any) => {
     <Img src={data.image} />
     <DetailText>
       <AppTitle>{data.name}</AppTitle>
-      <CorporationLink href="" target="_blank">Microsoft Corporation</CorporationLink>
+      <CorporationLink href={data.external_url} target="_blank">Go to the App pages</CorporationLink>
       <StartsWrapper>
         <ReactStars count={5} value={3} size={12} edit={false} color2={"#ffd700"} />
       </StartsWrapper>
