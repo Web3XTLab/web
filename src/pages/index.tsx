@@ -24,7 +24,7 @@ const HomePage = () => {
   const router = useRouter()
 
   const handleItemClick = useCallback((item) => {
-    router.push(`/detail/${item._tokenId}`);
+    router.push(`/detail?id=${item._tokenId}`);
   }, []);
 
   return (
