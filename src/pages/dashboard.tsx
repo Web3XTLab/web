@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Web3 from "web3";
 
 import { Input, Button } from "@fluentui/react-components";
 import { PrimaryButton } from "@fluentui/react/lib/Button";
@@ -15,11 +16,11 @@ const Dashboard = () => {
   const sellValue = useRef({
     name: "",
     tokenURI: "",
-    price: 0,
+    price: '0',
   });
   const buyValue = useRef({
     tokenId: "",
-    price: 0,
+    price: '0',
   });
   const verifyValue = useRef("");
   const appValue = useRef("");
@@ -77,7 +78,7 @@ const Dashboard = () => {
         <Input
           placeholder="Enter the price"
           onChange={(e) =>
-            (sellValue.current.price = web3.toBN(e.target.value) as any)
+            (sellValue.current.price = Web3.utils.toBN(e.target.value) as any)
           }
         />
         <Button onClick={handleSell}>Sell</Button>
@@ -91,7 +92,7 @@ const Dashboard = () => {
         <Input
           placeholder="Enter the price"
           onChange={(e) =>
-            (buyValue.current.price = web3.toBN(e.target.value) as any)
+            (buyValue.current.price = Web3.utils.toBN(e.target.value) as any)
           }
         />
         <Button onClick={handleBuy}>Buy</Button>

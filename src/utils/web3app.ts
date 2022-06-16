@@ -1,7 +1,5 @@
 import Web3 from "web3";
-import { Contract } from "web3-eth-contract"
 import { provider } from 'web3-core';
-import { Utils } from 'web3-utils'
 import { TransactionReceipt } from "ethereum-abi-types-generator";
 import AppStoreAbi from "@/src/abis/AppStore.json";
 import { ContractContext } from '@/src/types/AppStore';
@@ -13,7 +11,6 @@ interface IWeb3App {
   },
   web3: null | Web3,
   account: string,
-  toBN: Utils['toBN'],
   init: () => Promise<IWeb3App | null>;
   initWeb3: () => Promise<IWeb3App | null>;
   initContract: () => Promise<IWeb3App | null>;
@@ -36,8 +33,6 @@ const App: IWeb3App = {
   web3: null,
 
   account: '',
-
-  toBN: Web3.utils.toBN,
 
   init: async () => {
     if (App.web3) return App;
@@ -173,17 +168,8 @@ const App: IWeb3App = {
       const account = await App.getAccount();
       console.log("account", account);
 
-      App.contracts.AppStore?.events
-        .OnVerify({})
-        .on("data", (event) => {
-          console.log("verify", event.returnValues.verified);
-        })
-        .on("error", (error) => {
-          console.log(error);
-        });
-
-      const result = await App.contracts.AppStore?.methods
-        .verify(tokenId, account);
+      const result = await (App.contracts.AppStore?.methods
+        .verify(tokenId, account) as any).call();
 
       return !!result;
     } catch (e) {

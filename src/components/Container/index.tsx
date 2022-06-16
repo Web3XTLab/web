@@ -5,6 +5,8 @@ const NormalLayout = styled.div`
     display: flex;
     overflow-x: scroll;
     padding: 40px 72px;
+    justify-content: center;
+    margin: 0 auto;
     width: 1440px;
 `;
 
