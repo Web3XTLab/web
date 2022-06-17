@@ -75,10 +75,12 @@ const Header = () => {
             <LogoText>Bit Forest App Store</LogoText>
           </LogoWrapper>
         </Left>
-        <Right>
-          <Jazzicon diameter={24} seed={jsNumberForAddress(web3.account)} />
-          <UserName title={`${web3.account}`}>{web3.account}</UserName>
-        </Right>
+        {web3.account && (
+          <Right>
+            <Jazzicon diameter={24} seed={jsNumberForAddress(web3.account)} />
+            <UserName title={`${web3.account}`}>{web3.account}</UserName>
+          </Right>
+        )}
       </HeaderContent>
     </HeaderWrapper>
   );
