@@ -6,11 +6,11 @@ import Web3 from "web3";
 import axios from "axios";
 import styled from "styled-components";
 
-import { PrimaryButton, Stack, StackItem, Spinner, VerticalDivider } from "@fluentui/react";
+import { PrimaryButton, Stack, StackItem, Spinner } from "@fluentui/react";
 
 import useWeb3 from "@/src/hooks/useWeb3";
 import AppItemCard from "@/src/components/AppItemCard";
-
+import { FontIcon } from "@fluentui/react/lib/Icon";
 const Web3Layout = dynamic(() => import("@/src/Layout/Web3Layout"), {
   ssr: false,
 });
@@ -37,37 +37,17 @@ const Img = styled.img`
 `;
 
 const MediumDescriptionTitle = styled.h3`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-bottom: 2px;
   margin-top: 8px;
   margin-left: 20px;
 `;
 
 const MediumDescriptionText = styled.p`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   margin-bottom: 10px;
   margin-left: 20px;
 `;
 
-const DetailContainerBottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 24px;
-  padding-right: 25px;
-  width: 80%;
-`;
-
 const DetailContainerBottomTitle = styled.h2`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -76,7 +56,7 @@ const DetailContainerBottomTitle = styled.h2`
   color: #262626;
 `;
 
-const DetailContainerBottomText = styled.div`
+const DetailContainerBottomText = styled(StackItem)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -85,7 +65,7 @@ const DetailContainerBottomText = styled.div`
   padding: 24px;
   margin: 12px 0px 40px;
   height: max-content;
-  width: 100%;
+  width: 78%;
   border-radius: 4px;
   box-shadow: 0px 1.6px 3.6px rgb(0 0 0 / 14%), 0px 0px 2.9px rgb(0 0 0 / 12%);
 `;
@@ -126,6 +106,17 @@ const Price = styled.div`
   color: #605e5c;
   padding-top: 4px;
   font-size: 13px;
+`;
+
+const Error = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #605e5c;
+    padding-left: 8px;
+  }
 `;
 
 const imgSrc =
@@ -237,18 +228,22 @@ const Detail = () => {
 
   const Bottom = ({ data }: any) => {
     return (
-      <DetailContainerBottom>
-        <DetailContainerBottomTitle>Description</DetailContainerBottomTitle>
+      <Stack disableShrink >
+        <StackItem style={{ marginTop: 24, marginBottom: 12 }}>
+          <DetailContainerBottomTitle>Description</DetailContainerBottomTitle>
+        </StackItem>
+
         <DetailContainerBottomText>
-          <DetailContainerBottomDesc>
+          <DetailContainerBottomDesc >
             {data.description}
           </DetailContainerBottomDesc>
           <DetailContainerBottomLink href="" target="_blank">
             Show More
           </DetailContainerBottomLink>
         </DetailContainerBottomText>
-      </DetailContainerBottom>
+      </Stack>
     );
+
   };
 
   return (
