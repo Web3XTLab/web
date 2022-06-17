@@ -7,15 +7,17 @@ import { ContractContext } from '@/src/types/AppStore';
 interface IWeb3App {
   web3Provider: null | provider;
   contracts: {
-    AppStore: ContractContext | null,
-  },
-  web3: null | Web3,
-  account: string,
+    AppStore: ContractContext | null;
+  };
+  web3: null | Web3;
+  account?: string;
+  networkId?: number;
+  networkAddress?: string;
   init: () => Promise<IWeb3App | null>;
   initWeb3: () => Promise<IWeb3App | null>;
   initContract: () => Promise<IWeb3App | null>;
   getAccount: () => Promise<string>;
-  useMetaMask: () => boolean;
+  checkAvailable: () => boolean;
   sell: (name: string, tokenURI: string, price: string) => Promise<TransactionReceipt | null>;
   buy: (tokenId: string, price: string) => Promise<TransactionReceipt | null>;
   verify: (tokenId: string) => Promise<boolean>;
@@ -32,7 +34,9 @@ const App: IWeb3App = {
   },
   web3: null,
 
-  account: '',
+  account: undefined,
+  networkId: undefined,
+  networkAddress: undefined,
 
   init: async () => {
     if (App.web3) return App;
@@ -75,13 +79,15 @@ const App: IWeb3App = {
   initContract: async () => {
     const networkId = await App.web3?.eth.net.getId();
     if (!networkId) return null;
+    App.networkId = networkId;
 
-    const nftDeployedNetwork = AppStoreAbi.networks[`${networkId}` as keyof typeof AppStoreAbi['networks']];
-    if (!nftDeployedNetwork?.address) return null;
+    const deployedNetwork = AppStoreAbi.networks[`${networkId}` as keyof typeof AppStoreAbi['networks']];
+    if (!deployedNetwork?.address) return null;
+    App.networkAddress = deployedNetwork?.address;
 
     App.contracts.AppStore = new (App.web3 as any)?.eth.Contract(
       AppStoreAbi.abi,
-      nftDeployedNetwork.address
+      deployedNetwork.address
     );
 
     try {
@@ -108,7 +114,7 @@ const App: IWeb3App = {
 
   // TODO: https://docs.metamask.io/guide/ethereum-provider.html
   // import detectEthereumProvider from '@metamask/detect-provider';
-  useMetaMask: () => {
+  checkAvailable: () => {
     return !!(window as any).ethereum;
   },
 
