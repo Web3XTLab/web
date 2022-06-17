@@ -26,7 +26,7 @@ export function Buy() {
     const result = await web3app.buy(appTokenId, price);
     setLoading(false);
 
-    if (result !== undefined) {
+    if (result !== null) {
       setResultText("Done");
     } else {
       setResultText("Something is wrong");

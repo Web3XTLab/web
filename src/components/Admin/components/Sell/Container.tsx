@@ -30,7 +30,7 @@ export function Sell() {
     const result = await web3app.sell(name, appTokenURI, price);
     setLoading(false);
 
-    if (result !== undefined) {
+    if (result !== null) {
       setResultText("Done");
     } else {
       setResultText("Something is wrong");
