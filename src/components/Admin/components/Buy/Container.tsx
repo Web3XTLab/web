@@ -19,17 +19,25 @@ export function Buy() {
     setPrice(e.currentTarget.value);
   };
 
+  const checkInput = (): boolean => {
+    return appTokenId.length > 0 && price.length > 0;
+  };
+
   const onButtonClick: IButtonProps["onClick"] = async () => {
     setResultText("");
 
-    setLoading(true);
-    const result = await web3app.buy(appTokenId, price);
-    setLoading(false);
-
-    if (result !== null) {
-      setResultText("Done");
+    if (!checkInput()) {
+      setResultText("Please input app token id and price");
     } else {
-      setResultText("Something is wrong");
+      setLoading(true);
+      const result = await web3app.buy(appTokenId, price);
+      setLoading(false);
+
+      if (result !== null) {
+        setResultText("Done");
+      } else {
+        setResultText("Something is wrong");
+      }
     }
   };
 

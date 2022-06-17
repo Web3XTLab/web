@@ -14,17 +14,25 @@ export function Verify() {
     setAppTokenId(e.currentTarget.value);
   };
 
+  const checkInput = (): boolean => {
+    return appTokenId.length > 0;
+  };
+
   const onButtonClick: IButtonProps["onClick"] = async () => {
-    setResultText("");
-    setLoading(true);
-    const result = await web3app.verify(appTokenId);
-    setLoading(false);
-    if (result) {
-      setResultText("The current consumer passes the authentication.");
-    } else if (result === false) {
-      setResultText("The current consumer does not pass the authentication.");
+    if (!checkInput()) {
+      setResultText("Please input app token id");
     } else {
-      setResultText("Something goes wrong...");
+      setResultText("");
+      setLoading(true);
+      const result = await web3app.verify(appTokenId);
+      setLoading(false);
+      if (result) {
+        setResultText("The current consumer passes the authentication.");
+      } else if (result === false) {
+        setResultText("The current consumer does not pass the authentication.");
+      } else {
+        setResultText("Something goes wrong...");
+      }
     }
   };
 

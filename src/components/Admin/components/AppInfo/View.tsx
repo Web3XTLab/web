@@ -13,13 +13,20 @@ export interface IAppInfoViewProps {
   loading: boolean;
   appTokenId: string;
   appInfo: object | null;
+  resultText: string;
   onAppTokenIdChange: ITextFieldProps["onChange"];
   onButtonClick: IButtonProps["onClick"];
 }
 
 export function AppInfoView(props: IAppInfoViewProps) {
-  const { appTokenId, loading, appInfo, onAppTokenIdChange, onButtonClick } =
-    props;
+  const {
+    appTokenId,
+    loading,
+    appInfo,
+    resultText,
+    onAppTokenIdChange,
+    onButtonClick,
+  } = props;
 
   return (
     <div className={styles.AppInfoView}>
@@ -42,6 +49,7 @@ export function AppInfoView(props: IAppInfoViewProps) {
             Query!
           </PrimaryButton>
         </div>
+        <div className={styles.resultText}>{resultText}</div>
         {loading || appInfo === null ? null : (
           <pre className={styles.appInfoWrapper}>
             <code>{JSON.stringify(appInfo, null, 2)}</code>

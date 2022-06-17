@@ -23,17 +23,25 @@ export function Sell() {
     setPrice(e.currentTarget.value);
   };
 
+  const checkInput = (): boolean => {
+    return name.length > 0 && appTokenURI.length > 0 && price.length > 0;
+  };
+
   const onButtonClick: IButtonProps["onClick"] = async () => {
-    setResultText("");
-
-    setLoading(true);
-    const result = await web3app.sell(name, appTokenURI, price);
-    setLoading(false);
-
-    if (result !== null) {
-      setResultText("Done");
+    if (!checkInput()) {
+      setResultText("Please input name, app token URI and price");
     } else {
-      setResultText("Something is wrong");
+      setResultText("");
+
+      setLoading(true);
+      const result = await web3app.sell(name, appTokenURI, price);
+      setLoading(false);
+
+      if (result !== null) {
+        setResultText("Done");
+      } else {
+        setResultText("Something is wrong");
+      }
     }
   };
 

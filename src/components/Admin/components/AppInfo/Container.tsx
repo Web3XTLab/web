@@ -7,17 +7,28 @@ export function AppInfo() {
   const [loading, setLoading] = useState(false);
   const [appTokenId, setAppTokenId] = useState("");
   const [appInfo, setAppInfo] = useState<{} | null>(null);
+  const [resultText, setResultText] = useState("");
   const web3app = useWeb3();
 
   const onAppTokenIdChange: ITextFieldProps["onChange"] = (e) => {
     setAppTokenId(e.currentTarget.value);
   };
 
+  const checkInput = (): boolean => {
+    return appTokenId.length > 0;
+  };
+
   const onButtonClick: IButtonProps["onClick"] = async () => {
-    setLoading(true);
-    const appInfo = await web3app.getAppInfo(appTokenId);
-    setAppInfo(appInfo);
-    setLoading(false);
+    if (!checkInput()) {
+      setResultText("Please input app token id");
+      setAppInfo(null);
+    } else {
+      setResultText("");
+      setLoading(true);
+      const appInfo = await web3app.getAppInfo(appTokenId);
+      setAppInfo(appInfo);
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,6 +36,7 @@ export function AppInfo() {
       loading={loading}
       appTokenId={appTokenId}
       appInfo={appInfo}
+      resultText={resultText}
       onAppTokenIdChange={onAppTokenIdChange}
       onButtonClick={onButtonClick}
     />
