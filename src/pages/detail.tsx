@@ -11,9 +11,11 @@ import { PrimaryButton, Stack, StackItem, Spinner } from "@fluentui/react";
 import useWeb3 from "@/src/hooks/useWeb3";
 import AppItemCard from "@/src/components/AppItemCard";
 import { FontIcon } from "@fluentui/react/lib/Icon";
+
 const Web3Layout = dynamic(() => import("@/src/Layout/Web3Layout"), {
   ssr: false,
 });
+
 
 export type AppMetaDataType = {
   name: string;
@@ -188,9 +190,7 @@ const Detail = () => {
     }
   }, [tokenId, web3, data]);
 
-  const cancle = () => {
 
-  }
   const Top = () => {
     return (
       <Stack horizontal disableShrink horizontalAlign="space-between">
@@ -286,7 +286,7 @@ const Detail = () => {
       {
         pageStatus === "error" && (
           <Error>
-            <FontIcon iconName="Cancel" onClick={cancle} />
+            <FontIcon iconName="Cancel" />
             <span>Data Error</span>
           </Error>
         )
@@ -300,7 +300,7 @@ const Detail = () => {
             <>{data && <Bottom data={data} />}</>
           </>
         )}
-
+      {/* <PromptBox /> */}
     </Stack>
   );
 };
