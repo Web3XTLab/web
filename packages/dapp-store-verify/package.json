@@ -1,6 +1,6 @@
 {
   "name": "dapp-store-verify",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Utility for DApp developers to verify consumer permissions",
   "main": "dist/cjs/packages/dapp-store-verify/src/index.js",
   "types": "dist/cjs/packages/dapp-store-verify/src/index.d.ts",
@@ -34,6 +34,9 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
+    "bignumber.js": "^9.0.2",
+    "bn.js": "^5.2.1",
+    "ethereum-abi-types-generator": "^1.3.2",
     "web3": "^1.7.3"
   }
 }
