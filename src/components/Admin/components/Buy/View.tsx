@@ -1,3 +1,4 @@
+import LoadingOverlay from "@/src/components/LoadingOverlay";
 import {
   IButtonProps,
   ITextFieldProps,
@@ -30,32 +31,34 @@ export function BuyView(props: IBuyViewProps) {
   return (
     <div className={styles.Buy}>
       <Title>Buy</Title>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter app token id"}
-          value={appTokenId}
-          onChange={onAppTokenURIChange}
-        />
-      </div>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter price"}
-          value={price}
-          onChange={onAmountChange}
-        />
-      </div>
-      <div className={styles.buttonWrapper}>
-        <PrimaryButton
-          disabled={loading}
-          className={styles.button}
-          onClick={onButtonClick}
-        >
-          Buy!
-        </PrimaryButton>
-      </div>
-      <div className={styles.resultText}>{resultText}</div>
+      <LoadingOverlay show={loading}>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter app token id"}
+            value={appTokenId}
+            onChange={onAppTokenURIChange}
+          />
+        </div>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter price"}
+            value={price}
+            onChange={onAmountChange}
+          />
+        </div>
+        <div className={styles.buttonWrapper}>
+          <PrimaryButton
+            disabled={loading}
+            className={styles.button}
+            onClick={onButtonClick}
+          >
+            Buy!
+          </PrimaryButton>
+        </div>
+        <div className={styles.resultText}>{resultText}</div>
+      </LoadingOverlay>
     </div>
   );
 }

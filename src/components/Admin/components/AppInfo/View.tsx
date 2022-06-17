@@ -1,3 +1,4 @@
+import LoadingOverlay from "@/src/components/LoadingOverlay";
 import {
   IButtonProps,
   ITextFieldProps,
@@ -23,28 +24,30 @@ export function AppInfoView(props: IAppInfoViewProps) {
   return (
     <div className={styles.AppInfoView}>
       <Title>App Info</Title>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter app token id"}
-          value={appTokenId}
-          onChange={onAppTokenIdChange}
-        />
-      </div>
-      <div className={styles.buttonWrapper}>
-        <PrimaryButton
-          disabled={loading}
-          className={styles.button}
-          onClick={onButtonClick}
-        >
-          Query!
-        </PrimaryButton>
-      </div>
-      {loading || appInfo === null ? null : (
-        <pre className={styles.appInfoWrapper}>
-          <code>{JSON.stringify(appInfo, null, 2)}</code>
-        </pre>
-      )}
+      <LoadingOverlay show={loading}>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter app token id"}
+            value={appTokenId}
+            onChange={onAppTokenIdChange}
+          />
+        </div>
+        <div className={styles.buttonWrapper}>
+          <PrimaryButton
+            disabled={loading}
+            className={styles.button}
+            onClick={onButtonClick}
+          >
+            Query!
+          </PrimaryButton>
+        </div>
+        {loading || appInfo === null ? null : (
+          <pre className={styles.appInfoWrapper}>
+            <code>{JSON.stringify(appInfo, null, 2)}</code>
+          </pre>
+        )}
+      </LoadingOverlay>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import LoadingOverlay from "@/src/components/LoadingOverlay";
 import {
   IButtonProps,
   ITextFieldProps,
@@ -34,40 +35,42 @@ export function SellView(props: ISellViewProps) {
   return (
     <div className={styles.Sell}>
       <Title>Sell</Title>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter app name"}
-          value={name}
-          onChange={onNameChange}
-        />
-      </div>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter app token URI"}
-          value={appTokenURI}
-          onChange={onAppTokenURIChange}
-        />
-      </div>
-      <div className={styles.textFieldWrapper}>
-        <TextField
-          disabled={loading}
-          placeholder={"Enter price"}
-          value={price}
-          onChange={onAmountChange}
-        />
-      </div>
-      <div className={styles.buttonWrapper}>
-        <PrimaryButton
-          disabled={loading}
-          className={styles.button}
-          onClick={onButtonClick}
-        >
-          Sell!
-        </PrimaryButton>
-      </div>
-      <div className={styles.resultText}>{resultText}</div>
+      <LoadingOverlay show={loading}>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter app name"}
+            value={name}
+            onChange={onNameChange}
+          />
+        </div>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter app token URI"}
+            value={appTokenURI}
+            onChange={onAppTokenURIChange}
+          />
+        </div>
+        <div className={styles.textFieldWrapper}>
+          <TextField
+            disabled={loading}
+            placeholder={"Enter price"}
+            value={price}
+            onChange={onAmountChange}
+          />
+        </div>
+        <div className={styles.buttonWrapper}>
+          <PrimaryButton
+            disabled={loading}
+            className={styles.button}
+            onClick={onButtonClick}
+          >
+            Sell!
+          </PrimaryButton>
+        </div>
+        <div className={styles.resultText}>{resultText}</div>
+      </LoadingOverlay>
     </div>
   );
 }

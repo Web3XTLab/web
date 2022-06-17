@@ -1,3 +1,4 @@
+import LoadingOverlay from "@/src/components/LoadingOverlay";
 import {
   DetailsList,
   IButtonProps,
@@ -47,18 +48,18 @@ export function URIListView(props: IURIListViewProps) {
     <div className={styles.URIList}>
       <div className={styles.titleWrapper}>
         <Title>Token ID List</Title>
-        <PrimaryButton onClick={onReloadButtonClick}>Reload</PrimaryButton>
+        <PrimaryButton onClick={onReloadButtonClick} disabled={loading}>
+          Reload
+        </PrimaryButton>
       </div>
       <div className={styles.jsonWrapper}>
-        {loading ? (
-          <Spinner size={SpinnerSize.large} label={"Loading..."} />
-        ) : (
+        <LoadingOverlay show={loading}>
           <DetailsList
             selectionMode={SelectionMode.none}
             items={items}
             columns={columns}
           />
-        )}
+        </LoadingOverlay>
       </div>
     </div>
   );
