@@ -1,0 +1,12 @@
+@import "../../shared.module.scss";
+
+.AppInfoView {
+  @extend %Shared;
+
+  .appInfoWrapper {
+    margin: 10px 0;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 3px;
+  }
+}
