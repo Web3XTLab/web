@@ -103,6 +103,8 @@ const Hr = styled.div`
 `;
 
 const Price = styled.div`
+  display: flex;
+  justify-content: center;
   color: #605e5c;
   padding-top: 4px;
   font-size: 13px;
@@ -119,12 +121,25 @@ const Error = styled.div`
   }
 `;
 
+const SpinnerWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const imgSrc =
   "https://store-images.s-microsoft.com/image/apps.60811.b0da2c59-ac0b-4fa2-be60-7bd5087a9aa2.7c62ea9f-3cc7-47c9-b561-95c9ae2a6405.7829337d-00ac-4df4-85ff-a0f218280be4";
 
 const Detail = () => {
   const [data, setData] = useState<AppMetaDataType | null>(null);
   const [purchaseStatus, setPurcpurchaseStatushase] = useState("loading");
+  const [pageStatus, setPageStatus] = useState("loading");
+
   const web3 = useWeb3();
   const router = useRouter();
 
@@ -136,17 +151,24 @@ const Detail = () => {
   useEffect(() => {
     (async () => {
       if (!tokenId || !web3.web3) return;
+      try {
+        const itemURI = await web3.tokenURI(tokenId);
+        const appInfo = await web3.getAppInfo(tokenId);
+        const data = await axios.get(itemURI);
 
-      const itemURI = await web3.tokenURI(tokenId);
-      const appInfo = await web3.getAppInfo(tokenId);
-      const data = await axios.get(itemURI);
+        setData({
+          ...data.data,
+          _appInfo: appInfo,
+        });
 
-      setData({
-        ...data.data,
-        _appInfo: appInfo,
-      });
+        checkPurchaseStatus();
 
-      checkPurchaseStatus();
+        setPageStatus("loaded");
+      } catch (e) {
+        setPageStatus("error");
+        console.error(e);
+      }
+
     })();
   }, [tokenId, web3.web3]);
 
@@ -159,12 +181,16 @@ const Detail = () => {
     setPurcpurchaseStatushase("achieving");
     const price = data?._appInfo.price;
     if (price) {
+
       await web3.buy(tokenId, price);
 
       checkPurchaseStatus();
     }
   }, [tokenId, web3, data]);
 
+  const cancle = () => {
+
+  }
   const Top = () => {
     return (
       <Stack horizontal disableShrink horizontalAlign="space-between">
@@ -248,10 +274,33 @@ const Detail = () => {
 
   return (
     <Stack grow>
-      <Top />
-      <Hr />
-      <Medium />
-      <>{data && <Bottom data={data} />}</>
+      {pageStatus === "loading" && (
+        <SpinnerWrapper>
+          <Spinner
+            label="Wait, wait..."
+            ariaLive="assertive"
+            labelPosition="bottom"
+          />
+        </SpinnerWrapper>
+      )}
+      {
+        pageStatus === "error" && (
+          <Error>
+            <FontIcon iconName="Cancel" onClick={cancle} />
+            <span>Data Error</span>
+          </Error>
+        )
+      }
+      {
+        pageStatus === "loaded" && (
+          <>
+            <Top />
+            <Hr />
+            <Medium />
+            <>{data && <Bottom data={data} />}</>
+          </>
+        )}
+
     </Stack>
   );
 };
