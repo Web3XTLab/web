@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import { provider } from 'web3-core';
+import { AbiItem } from 'web3-utils';
 import { TransactionReceipt } from "ethereum-abi-types-generator";
 import AppStoreAbi from "@/src/abis/AppStore.json";
 import { ContractContext } from '@/src/types/AppStore';
@@ -15,7 +16,7 @@ interface IWeb3App {
   networkAddress?: string;
   init: () => Promise<IWeb3App | null>;
   initWeb3: () => Promise<IWeb3App | null>;
-  initContract: () => Promise<IWeb3App | null>;
+  initContract: (web3instance: Web3) => Promise<IWeb3App | null>;
   getAccount: () => Promise<string>;
   checkAvailable: () => boolean;
   sell: (name: string, tokenURI: string, price: string) => Promise<TransactionReceipt | null>;
@@ -51,9 +52,10 @@ const App: IWeb3App = {
         try {
           // Request account access
           await (window as any).ethereum.request({ method: "eth_requestAccounts" });
-        } catch (error) {
+        } catch (e) {
           // User denied account access...
           console.error("User denied account access");
+          throw new Error(e as any);
         }
       }
       // Legacy dapp browsers...
@@ -69,15 +71,15 @@ const App: IWeb3App = {
       // App.web3 = new Web3("ws://127.0.0.1:7545");
       App.web3 = new Web3(App.web3Provider);
 
-      return await App.initContract();
+      return await App.initContract(App.web3);
     } catch (e) {
       console.error(e);
       return null;
     }
   },
 
-  initContract: async () => {
-    const networkId = await App.web3?.eth.net.getId();
+  initContract: async (web3instance) => {
+    const networkId = await web3instance.eth.net.getId();
     if (!networkId) return null;
     App.networkId = networkId;
 
@@ -85,10 +87,10 @@ const App: IWeb3App = {
     if (!deployedNetwork?.address) return null;
     App.networkAddress = deployedNetwork?.address;
 
-    App.contracts.AppStore = new (App.web3 as any)?.eth.Contract(
-      AppStoreAbi.abi,
+    App.contracts.AppStore = new web3instance.eth.Contract(
+      AppStoreAbi.abi as AbiItem[],
       deployedNetwork.address
-    );
+    ) as any as ContractContext;
 
     try {
       await App.getAccount();
