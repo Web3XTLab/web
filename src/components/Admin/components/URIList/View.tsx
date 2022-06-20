@@ -5,12 +5,10 @@ import {
   IColumn,
   PrimaryButton,
   SelectionMode,
-  Spinner,
-  SpinnerSize,
 } from "@fluentui/react";
 import React from "react";
-import { Title } from "../Title";
-import styles from "./styles.module.scss";
+import { SubTitle } from "../../styledComponents/SubTitle";
+import { TitleWrapper } from "./styledComponents/TitleWrapper";
 
 export interface IURIListViewProps {
   loading: boolean;
@@ -45,14 +43,14 @@ export function URIListView(props: IURIListViewProps) {
   }));
 
   return (
-    <div className={styles.URIList}>
-      <div className={styles.titleWrapper}>
-        <Title>Token ID List</Title>
+    <div>
+      <TitleWrapper>
+        <SubTitle>Token ID List</SubTitle>
         <PrimaryButton onClick={onReloadButtonClick} disabled={loading}>
           Reload
         </PrimaryButton>
-      </div>
-      <div className={styles.jsonWrapper}>
+      </TitleWrapper>
+      <div>
         <LoadingOverlay show={loading}>
           <DetailsList
             selectionMode={SelectionMode.none}

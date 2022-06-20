@@ -1,31 +1,34 @@
+import { Main } from "./styledComponents/Main";
 import { AppInfo } from "./components/AppInfo";
 import { Buy } from "./components/Buy";
+import { ComponentWrapper } from "./styledComponents/ComponentWrapper";
 import { Sell } from "./components/Sell";
 import { URIList } from "./components/URIList";
 import { Verify } from "./components/Verify";
-import styles from "./styles.module.scss";
+import { Title } from "./styledComponents/Title";
+import { ViewWrapper } from "./styledComponents/ViewWrapper";
 
 export function Admin() {
   return (
-    <div className={styles.Admin}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>Admin Page</h1>
-        <div className={styles.component}>
+    <ViewWrapper>
+      <Main>
+        <Title>Admin Page</Title>
+        <ComponentWrapper>
           <Buy />
-        </div>
-        <div className={styles.component}>
+        </ComponentWrapper>
+        <ComponentWrapper>
           <Sell />
-        </div>
-        <div className={styles.component}>
+        </ComponentWrapper>
+        <ComponentWrapper>
           <Verify />
-        </div>
-        <div className={styles.component}>
+        </ComponentWrapper>
+        <ComponentWrapper>
           <AppInfo />
-        </div>
-        <div className={styles.component}>
+        </ComponentWrapper>
+        <ComponentWrapper>
           <URIList />
-        </div>
-      </main>
-    </div>
+        </ComponentWrapper>
+      </Main>
+    </ViewWrapper>
   );
 }
