@@ -1,6 +1,7 @@
 import { Spinner } from "@fluentui/react";
 import React from "react";
-import styles from "./styles.module.scss";
+import { SpinnerWrapper } from "./styledComponent/SpinnerWrapper";
+import { ViewWrapper } from "./styledComponent/ViewWrapper";
 
 export interface ILoadingOverlay {
   show: boolean;
@@ -11,13 +12,13 @@ export function LoadingOverlay(props: ILoadingOverlay) {
   const { show, children } = props;
 
   return (
-    <div className={styles.LoadingOverlay}>
+    <ViewWrapper>
       {show ? (
-        <div className={styles.spinnerWrapper}>
+        <SpinnerWrapper>
           <Spinner label="Loading..." />
-        </div>
+        </SpinnerWrapper>
       ) : null}
-      <div className={styles.childrenWrapper}>{children}</div>
-    </div>
+      <div>{children}</div>
+    </ViewWrapper>
   );
 }
