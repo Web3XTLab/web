@@ -1,13 +1,12 @@
 import LoadingOverlay from "@/src/components/LoadingOverlay";
-import {
-  IButtonProps,
-  ITextFieldProps,
-  PrimaryButton,
-  TextField,
-} from "@fluentui/react";
+import { IButtonProps, ITextFieldProps, TextField } from "@fluentui/react";
 import React from "react";
-import { Title } from "../Title";
-import styles from "./styles.module.scss";
+import { ButtonWrapper } from "../../styledComponents/ButtonWrapper";
+import { ResultText } from "../../styledComponents/ResultText";
+import { StyledPrimaryButton } from "../../styledComponents/StyledPrimaryButton";
+import { SubTitle } from "../../styledComponents/SubTitle";
+import { TextFieldWrapper } from "../../styledComponents/TextFieldWrapper";
+import { AppInfoWrapper } from "./styledComponents/AppInfoWrapper";
 
 export interface IAppInfoViewProps {
   loading: boolean;
@@ -29,31 +28,27 @@ export function AppInfoView(props: IAppInfoViewProps) {
   } = props;
 
   return (
-    <div className={styles.AppInfoView}>
-      <Title>App Info</Title>
+    <div>
+      <SubTitle>App Info</SubTitle>
       <LoadingOverlay show={loading}>
-        <div className={styles.textFieldWrapper}>
+        <TextFieldWrapper>
           <TextField
             disabled={loading}
             placeholder={"Enter app token id"}
             value={appTokenId}
             onChange={onAppTokenIdChange}
           />
-        </div>
-        <div className={styles.buttonWrapper}>
-          <PrimaryButton
-            disabled={loading}
-            className={styles.button}
-            onClick={onButtonClick}
-          >
+        </TextFieldWrapper>
+        <ButtonWrapper>
+          <StyledPrimaryButton disabled={loading} onClick={onButtonClick}>
             Query!
-          </PrimaryButton>
-        </div>
-        <div className={styles.resultText}>{resultText}</div>
+          </StyledPrimaryButton>
+        </ButtonWrapper>
+        <ResultText>{resultText}</ResultText>
         {loading || appInfo === null ? null : (
-          <pre className={styles.appInfoWrapper}>
+          <AppInfoWrapper>
             <code>{JSON.stringify(appInfo, null, 2)}</code>
-          </pre>
+          </AppInfoWrapper>
         )}
       </LoadingOverlay>
     </div>

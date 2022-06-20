@@ -1,13 +1,11 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import {
-  ITextFieldProps,
-  TextField,
-  PrimaryButton,
-  IButtonProps,
-} from "@fluentui/react";
-import { Title } from "../Title";
+import { ITextFieldProps, TextField, IButtonProps } from "@fluentui/react";
 import LoadingOverlay from "@/src/components/LoadingOverlay";
+import { SubTitle } from "../../styledComponents/SubTitle";
+import { TextFieldWrapper } from "../../styledComponents/TextFieldWrapper";
+import { ButtonWrapper } from "../../styledComponents/ButtonWrapper";
+import { StyledPrimaryButton } from "../../styledComponents/StyledPrimaryButton";
+import { ResultText } from "../../styledComponents/ResultText";
 
 export interface IVerifyViewProps {
   loading: boolean;
@@ -21,27 +19,23 @@ export function VerifyView(props: IVerifyViewProps) {
   const { appTokenId, loading, resultText, onAppTokenIdChange, onButtonClick } =
     props;
   return (
-    <div className={styles.Verify}>
-      <Title>Verify Authentication</Title>
+    <div>
+      <SubTitle>Verify Authentication</SubTitle>
       <LoadingOverlay show={loading}>
-        <div className={styles.textFieldWrapper}>
+        <TextFieldWrapper>
           <TextField
             disabled={loading}
             placeholder={"Enter app token id"}
             value={appTokenId}
             onChange={onAppTokenIdChange}
           />
-        </div>
-        <div className={styles.buttonWrapper}>
-          <PrimaryButton
-            disabled={loading}
-            className={styles.button}
-            onClick={onButtonClick}
-          >
+        </TextFieldWrapper>
+        <ButtonWrapper>
+          <StyledPrimaryButton disabled={loading} onClick={onButtonClick}>
             Verify!
-          </PrimaryButton>
-        </div>
-        <div className={styles.resultText}>{resultText}</div>
+          </StyledPrimaryButton>
+        </ButtonWrapper>
+        <ResultText>{resultText}</ResultText>
       </LoadingOverlay>
     </div>
   );

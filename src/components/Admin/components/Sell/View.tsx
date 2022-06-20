@@ -1,12 +1,10 @@
 import LoadingOverlay from "@/src/components/LoadingOverlay";
-import {
-  IButtonProps,
-  ITextFieldProps,
-  PrimaryButton,
-  TextField,
-} from "@fluentui/react";
-import { Title } from "../Title";
-import styles from "./styles.module.scss";
+import { IButtonProps, ITextFieldProps, TextField } from "@fluentui/react";
+import { ButtonWrapper } from "../../styledComponents/ButtonWrapper";
+import { ResultText } from "../../styledComponents/ResultText";
+import { StyledPrimaryButton } from "../../styledComponents/StyledPrimaryButton";
+import { SubTitle } from "../../styledComponents/SubTitle";
+import { TextFieldWrapper } from "../../styledComponents/TextFieldWrapper";
 
 export interface ISellViewProps {
   loading: boolean;
@@ -33,43 +31,39 @@ export function SellView(props: ISellViewProps) {
     onButtonClick,
   } = props;
   return (
-    <div className={styles.Sell}>
-      <Title>Sell</Title>
+    <div>
+      <SubTitle>Sell</SubTitle>
       <LoadingOverlay show={loading}>
-        <div className={styles.textFieldWrapper}>
+        <TextFieldWrapper>
           <TextField
             disabled={loading}
             placeholder={"Enter app name"}
             value={name}
             onChange={onNameChange}
           />
-        </div>
-        <div className={styles.textFieldWrapper}>
+        </TextFieldWrapper>
+        <TextFieldWrapper>
           <TextField
             disabled={loading}
             placeholder={"Enter app token URI"}
             value={appTokenURI}
             onChange={onAppTokenURIChange}
           />
-        </div>
-        <div className={styles.textFieldWrapper}>
+        </TextFieldWrapper>
+        <TextFieldWrapper>
           <TextField
             disabled={loading}
             placeholder={"Enter price"}
             value={price}
             onChange={onAmountChange}
           />
-        </div>
-        <div className={styles.buttonWrapper}>
-          <PrimaryButton
-            disabled={loading}
-            className={styles.button}
-            onClick={onButtonClick}
-          >
+        </TextFieldWrapper>
+        <ButtonWrapper>
+          <StyledPrimaryButton disabled={loading} onClick={onButtonClick}>
             Sell!
-          </PrimaryButton>
-        </div>
-        <div className={styles.resultText}>{resultText}</div>
+          </StyledPrimaryButton>
+        </ButtonWrapper>
+        <ResultText>{resultText}</ResultText>
       </LoadingOverlay>
     </div>
   );
