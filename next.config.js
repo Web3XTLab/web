@@ -3,7 +3,7 @@
 const nextConfig = {
   distDir: 'build',
   reactStrictMode: true,
-  basePath: '/boilerplate',
+  basePath: '/web',
 };
 
 module.exports = nextConfig;
