@@ -10,7 +10,8 @@
     "format": "prettier -w .",
     "migrate": "truffle compile && truffle migrate",
     "ropsten": "truffle migrate --reset --network ropsten",
-    "deploy:web": "next build && next export && git add -f out/ && git commit -m \"Deploy gh-pages\" && git subtree split --prefix out -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages",
+    "deploy:web": "next build && next export && npm run deploy:gh-pages",
+    "deploy:gh-pages": "git add -f out/ && git commit -m \"Deploy gh-pages\" && git subtree split --prefix out -b gh-pages && git push -f git@github.com:Web3XTLab/web.git gh-pages:master && git branch -D gh-pages",
     "test": "truffle test",
     "contract": "truffle exec ./scripts/contract_run.js",
     "abi-types": "abi-types-generator './src/abis/AppStore.json' --output='./src/types' --name=AppStore"
